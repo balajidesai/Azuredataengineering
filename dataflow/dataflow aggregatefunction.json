@@ -1,0 +1,75 @@
+{
+	"name": "dataflow aggregatefunction",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText20",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText21",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "aggregate1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          EmployeeID as string,",
+				"          FirstName as string,",
+				"          LastName as string,",
+				"          Gender as string,",
+				"          Email as string,",
+				"          Salary as string,",
+				"          DepartmentID as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 aggregate(groupBy(DepartmentID),",
+				"     EmployeeID = countDistinct(EmployeeID),",
+				"          Salary = max(Salary)) ~> aggregate1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Material_Code as string,",
+				"          Entity as string,",
+				"          {Profit center} as string,",
+				"          TP as string,",
+				"          {Transaction Currency} as string,",
+				"          VV110_Q1 as string,",
+				"          VV110_Q2 as string,",
+				"          VV110_Q3 as string,",
+				"          KWSVME_S3 as string,",
+				"          { VV200 } as string,",
+				"          VV830 as string,",
+				"          VV831 as string,",
+				"          VV832 as string,",
+				"          VV834 as string,",
+				"          VV847 as string,",
+				"          VRPRS as string,",
+				"          VV852 as string,",
+				"          { VV853 } as string,",
+				"          VV420_R1 as string,",
+				"          VV420_R2 as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

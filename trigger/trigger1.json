@@ -1,0 +1,24 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Storage Event CSV to JSON",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/csvinput/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/1b62013a-32cd-4c40-954a-3744c7886319/resourceGroups/rg-test-dev-ind-analytics/providers/Microsoft.Storage/storageAccounts/sttestdevind",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

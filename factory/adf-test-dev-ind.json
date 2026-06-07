@@ -1,0 +1,15 @@
+{
+	"name": "adf-test-dev-ind",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b98fef24-2de5-48ae-aa38-26dae976239c",
+		"tenantId": "eff8f927-cbf6-469d-ba8b-a4319f97c73a"
+	}
+}

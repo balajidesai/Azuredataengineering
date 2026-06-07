@@ -1,0 +1,94 @@
+{
+	"name": "dataflow select Transform",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText16",
+						"type": "DatasetReference"
+					},
+					"name": "COPAData"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText17",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Entity as string,",
+				"          {Profit center} as string,",
+				"          {Material Code} as string,",
+				"          {Trading Partner} as string,",
+				"          {Transaction Currency} as string,",
+				"          VV110_Q1 as string,",
+				"          VV110_Q2 as string,",
+				"          VV110_Q3 as string,",
+				"          KWSVME_S3 as string,",
+				"          { VV200 } as string,",
+				"          VV830 as string,",
+				"          VV831 as string,",
+				"          VV832 as string,",
+				"          VV834 as string,",
+				"          VV847 as string,",
+				"          VRPRS as string,",
+				"          VV852 as string,",
+				"          { VV853 } as string,",
+				"          VV420_R1 as string,",
+				"          VV420_R2 as string,",
+				"          VV420_R3 as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> COPAData",
+				"COPAData select(mapColumn(",
+				"          Material_Code = {Material Code},",
+				"          Entity,",
+				"          {Profit center},",
+				"          TP = {Trading Partner},",
+				"          {Transaction Currency},",
+				"          VV110_Q1,",
+				"          VV110_Q2,",
+				"          VV110_Q3,",
+				"          KWSVME_S3,",
+				"          { VV200 },",
+				"          VV830,",
+				"          VV831,",
+				"          VV832,",
+				"          VV834,",
+				"          VV847,",
+				"          VRPRS,",
+				"          VV852,",
+				"          { VV853 },",
+				"          VV420_R1,",
+				"          VV420_R2",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Month as string,",
+				"          Location as string,",
+				"          Sales as string,",
+				"          Profit as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

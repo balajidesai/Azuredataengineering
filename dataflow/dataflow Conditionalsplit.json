@@ -1,0 +1,72 @@
+{
+	"name": "dataflow Conditionalsplit",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText37",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText38",
+						"type": "DatasetReference"
+					},
+					"name": "IndiaOutput"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText39",
+						"type": "DatasetReference"
+					},
+					"name": "UKOutput"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText40",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "split1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          emp_id as string,",
+				"          name as string,",
+				"          salary as string,",
+				"          address as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 split(equals(address, 'india'),",
+				"     equals(address, 'uk'),",
+				"     equals(address, 'usa'),",
+				"     disjoint: true) ~> split1@(india, uk, usa)",
+				"split1@india sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> IndiaOutput",
+				"split1@uk sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> UKOutput",
+				"split1@usa sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}

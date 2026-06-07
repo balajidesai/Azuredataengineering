@@ -1,0 +1,109 @@
+{
+	"name": "COPAFile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Jan-COPA_26.csv",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Entity",
+				"type": "String"
+			},
+			{
+				"name": "Profit center",
+				"type": "String"
+			},
+			{
+				"name": "Material Code",
+				"type": "String"
+			},
+			{
+				"name": "Trading Partner",
+				"type": "String"
+			},
+			{
+				"name": "Transaction Currency",
+				"type": "String"
+			},
+			{
+				"name": "VV110_Q1",
+				"type": "String"
+			},
+			{
+				"name": "VV110_Q2",
+				"type": "String"
+			},
+			{
+				"name": "VV110_Q3",
+				"type": "String"
+			},
+			{
+				"name": "KWSVME_S3",
+				"type": "String"
+			},
+			{
+				"name": " VV200 ",
+				"type": "String"
+			},
+			{
+				"name": "VV830",
+				"type": "String"
+			},
+			{
+				"name": "VV831",
+				"type": "String"
+			},
+			{
+				"name": "VV832",
+				"type": "String"
+			},
+			{
+				"name": "VV834",
+				"type": "String"
+			},
+			{
+				"name": "VV847",
+				"type": "String"
+			},
+			{
+				"name": "VRPRS",
+				"type": "String"
+			},
+			{
+				"name": "VV852",
+				"type": "String"
+			},
+			{
+				"name": " VV853 ",
+				"type": "String"
+			},
+			{
+				"name": "VV420_R1",
+				"type": "String"
+			},
+			{
+				"name": "VV420_R2",
+				"type": "String"
+			},
+			{
+				"name": "VV420_R3",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
